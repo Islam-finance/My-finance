@@ -124,6 +124,80 @@ function cycleLabel(cycle) {
     return `${formatDate(cycle.start)} → ${formatDate(cycle.end)}`;
 }
 
+
+function getCategoryTotals(type, cycle) {
+    const totals = {};
+    transactions.forEach(t => {
+        if (t.type !== type || !isInCycle(new Date(t.date), cycle)) return;
+        const amount = Number(t.amount) || 0;
+        totals[t.category] = (totals[t.category] || 0) + amount;
+    });
+    return Object.entries(totals).sort((a, b) => b[1] - a[1]);
+}
+
+function renderBreakdown(elementId, items, emptyText) {
+    const el = document.getElementById(elementId);
+    if (!el) return;
+    if (!items.length) {
+        el.innerHTML = `<p class="empty mini-empty">${emptyText}</p>`;
+        return;
+    }
+    const max = items[0][1] || 1;
+    el.innerHTML = items.slice(0, 6).map(([name, value]) => `
+        <div class="bar-row">
+            <div class="bar-label"><span>${escapeHtml(name)}</span><strong>${formatMoney(value)}</strong></div>
+            <div class="bar-track"><div class="bar-fill" style="width:${Math.max(4, (value / max) * 100)}%"></div></div>
+        </div>
+    `).join("");
+}
+
+function renderInstallmentOverview() {
+    const el = document.getElementById("installmentOverview");
+    if (!el) return;
+    const active = installments
+        .filter(i => i.paid < i.total)
+        .slice()
+        .sort((a, b) => Number(a.day) - Number(b.day));
+
+    if (!active.length) {
+        el.innerHTML = `<p class="empty">لا توجد أقساط مستحقة أو متبقية 🎉</p>`;
+        return;
+    }
+
+    el.innerHTML = active.slice(0, 5).map(i => {
+        const remaining = i.total - i.paid;
+        return `
+            <div class="upcoming-installment">
+                <div>
+                    <strong>${escapeHtml(i.name)}</strong>
+                    <span>يستحق يوم ${i.day} • متبقي ${remaining} قسط</span>
+                </div>
+                <strong>${formatMoney(i.amount)}</strong>
+            </div>
+        `;
+    }).join("");
+}
+
+function updateAnalytics(currentCycle) {
+    const incomeItems = getCategoryTotals("income", currentCycle);
+    const expenseItems = getCategoryTotals("expense", currentCycle);
+    renderBreakdown("expenseBreakdown", expenseItems, "لا توجد مصروفات في الدورة الحالية");
+    renderBreakdown("incomeBreakdown", incomeItems, "لا يوجد دخل في الدورة الحالية");
+
+    const remainingInstallments = installments.reduce((sum, i) => {
+        const remaining = Math.max(0, Number(i.total) - Number(i.paid));
+        return sum + remaining * (Number(i.amount) || 0);
+    }, 0);
+    const remainingCount = installments.reduce((sum, i) => sum + Math.max(0, Number(i.total) - Number(i.paid)), 0);
+
+    const amountEl = document.getElementById("installmentsRemaining");
+    const hintEl = document.getElementById("installmentsHint");
+    if (amountEl) amountEl.textContent = formatMoney(remainingInstallments);
+    if (hintEl) hintEl.textContent = remainingCount ? `${remainingCount} قسط متبقي` : "تم الانتهاء من جميع الأقساط";
+
+    renderInstallmentOverview();
+}
+
 function updateDashboard() {
     const currentCycle = getCurrentCycle();
 
@@ -153,6 +227,17 @@ function updateDashboard() {
     document.getElementById("cycleIncome").textContent = formatMoney(cycleIncome);
     document.getElementById("cycleExpense").textContent = formatMoney(cycleExpense);
     document.getElementById("cycleTitle").textContent = cycleLabel(currentCycle);
+
+    const cycleRemaining = cycleIncome - cycleExpense;
+    const remainingEl = document.getElementById("cycleRemaining");
+    const remainingHint = document.getElementById("cycleRemainingHint");
+    if (remainingEl) {
+        remainingEl.textContent = formatMoney(cycleRemaining);
+        remainingEl.className = cycleRemaining >= 0 ? "positive" : "negative";
+    }
+    if (remainingHint) remainingHint.textContent = cycleRemaining >= 0 ? "المتاح بعد مصروفات الدورة" : "المصروفات تجاوزت دخل الدورة";
+
+    updateAnalytics(currentCycle);
 }
 
 function showForm(type, transactionToEdit = null) {

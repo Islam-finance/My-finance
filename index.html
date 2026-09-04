@@ -9,7 +9,7 @@
     <meta name="apple-mobile-web-app-title" content="حساباتي">
     <title>حساباتي</title>
     <link rel="manifest" href="manifest.json">
-    <link rel="stylesheet" href="style.css?v=3">
+    <link rel="stylesheet" href="style.css?v=4">
 </head>
 <body>
     <main class="container">
@@ -48,6 +48,42 @@
                 <span>مصروفات كل الوقت</span>
                 <strong id="totalExpense">٠ ج.م</strong>
             </div>
+        </section>
+
+        <section class="dashboard-extra">
+            <div class="insight-card">
+                <span>المتاح في الدورة</span>
+                <strong id="cycleRemaining">٠ ج.م</strong>
+                <small id="cycleRemainingHint">دخل الدورة − مصروفاتها</small>
+            </div>
+            <div class="insight-card">
+                <span>إجمالي المتبقي من الأقساط</span>
+                <strong id="installmentsRemaining">٠ ج.م</strong>
+                <small id="installmentsHint">لا توجد أقساط</small>
+            </div>
+        </section>
+
+        <section class="panel analytics-panel">
+            <div class="panel-header">
+                <h2>📊 تحليل الدورة الحالية</h2>
+            </div>
+            <div class="analytics-grid">
+                <div>
+                    <h3>أين ذهب مصروفي؟</h3>
+                    <div id="expenseBreakdown"></div>
+                </div>
+                <div>
+                    <h3>مصادر دخلي</h3>
+                    <div id="incomeBreakdown"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="panel">
+            <div class="panel-header">
+                <h2>🏦 الأقساط القادمة</h2>
+            </div>
+            <div id="installmentOverview"></div>
         </section>
 
         <section class="actions">
@@ -132,11 +168,11 @@
         <div id="toast" class="toast"></div>
     </main>
 
-    <script src="app.js?v=3"></script>
+    <script src="app.js?v=4"></script>
     <script>
         if ("serviceWorker" in navigator) {
             window.addEventListener("load", () => {
-                navigator.serviceWorker.register("./sw.js?v=3").catch(() => {});
+                navigator.serviceWorker.register("./sw.js?v=4").catch(() => {});
             });
         }
     </script>
