@@ -1,7 +1,7 @@
 {
     "name": "حساباتي",
     "short_name": "حساباتي",
-    "description": "تطبيق شخصي لإدارة الإيرادات والمصروفات",
+    "description": "تطبيق شخصي لإدارة الإيرادات والمصروفات والأقساط",
     "start_url": "./index.html",
     "display": "standalone",
     "background_color": "#f5f6f8",

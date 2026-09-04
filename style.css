@@ -1,157 +1,301 @@
-* {
-    box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
     background: #f5f6f8;
-    color: #222;
+    color: #161616;
+    font-family: Arial, "Tahoma", sans-serif;
 }
 
-.app {
-    max-width: 500px;
-    margin: auto;
-    padding: 20px;
+.container {
+    width: min(100% - 24px, 560px);
+    margin: 0 auto;
+    padding: 24px 0 40px;
 }
 
-header {
+.app-header {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 18px;
 }
 
-header h1 {
+.app-header h1 {
+    margin: 0 0 6px;
+    font-size: 32px;
+}
+
+.app-header p {
+    margin: 0;
+    color: #777;
+}
+
+.cycle-card,
+.balance-card,
+.panel,
+.summary-card {
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 3px 16px rgba(0,0,0,.05);
+}
+
+.cycle-card {
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.cycle-card .label {
+    display: block;
+    color: #777;
+    font-size: 13px;
     margin-bottom: 5px;
 }
 
-header p {
-    color: #777;
+.cycle-card strong {
+    display: block;
+    font-size: 15px;
 }
 
 .balance-card {
     background: #111;
-    color: white;
-    border-radius: 20px;
-    padding: 25px;
+    color: #fff;
+    padding: 24px;
     text-align: center;
-    margin-bottom: 15px;
+    margin-bottom: 14px;
 }
 
-.balance-card p {
-    margin: 0 0 10px;
+.balance-card span {
+    display: block;
+    opacity: .8;
+    margin-bottom: 10px;
 }
 
-.balance-card h2 {
-    margin: 0;
-    font-size: 32px;
+.balance-card strong {
+    display: block;
+    font-size: 31px;
 }
 
-.summary {
-    display: flex;
+.summary-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: 12px;
+    margin-bottom: 14px;
 }
 
 .summary-card {
-    background: white;
-    border-radius: 15px;
-    padding: 18px;
-    flex: 1;
+    padding: 16px;
     text-align: center;
 }
 
 .summary-card span {
     display: block;
     color: #777;
+    font-size: 13px;
     margin-bottom: 8px;
 }
 
 .summary-card strong {
-    font-size: 20px;
+    font-size: 18px;
 }
 
-.income strong {
-    color: #16833b;
+.summary-card:nth-child(1) strong,
+.income {
+    color: #138a3d;
 }
 
-.expense strong {
-    color: #c62828;
+.summary-card:nth-child(2) strong,
+.expense {
+    color: #d1242f;
 }
 
 .actions {
-    display: flex;
-    gap: 10px;
-    margin: 20px 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 14px;
 }
 
 button {
-    border: none;
-    border-radius: 12px;
-    padding: 15px;
-    font-size: 16px;
+    border: 0;
     cursor: pointer;
+    font: inherit;
 }
 
-.income-button {
-    background: #16833b;
-    color: white;
-    flex: 1;
-}
-
-.expense-button {
-    background: #c62828;
-    color: white;
-    flex: 1;
-}
-
-.form-section {
-    background: white;
-    padding: 20px;
+.actions button {
+    color: #fff;
+    padding: 15px 10px;
     border-radius: 15px;
-    margin-bottom: 20px;
+    font-weight: bold;
 }
 
-.form-section input,
-.form-section select {
-    width: 100%;
-    padding: 14px;
-    margin-bottom: 12px;
-    border: 1px solid #ddd;
+.income-btn { background: #138a3d; }
+.expense-btn { background: #d1242f; }
+
+.panel {
+    padding: 18px;
+    margin-bottom: 14px;
+}
+
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+}
+
+.panel-header h2 {
+    margin: 0;
+    font-size: 19px;
+}
+
+.small-btn {
+    background: #eee;
+    color: #222;
     border-radius: 10px;
-    font-size: 16px;
+    padding: 8px 11px;
+    font-size: 12px;
 }
 
-.form-section button {
+.icon-btn {
+    background: transparent;
+    color: #777;
+    font-size: 18px;
+}
+
+label {
+    display: block;
+    margin: 12px 0 6px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+input,
+select {
     width: 100%;
+    padding: 13px;
+    border: 1px solid #ddd;
+    border-radius: 11px;
+    background: #fff;
+    font: inherit;
+}
+
+.primary-btn {
+    width: 100%;
+    margin-top: 16px;
+    padding: 14px;
+    border-radius: 12px;
     background: #111;
-    color: white;
+    color: #fff;
+    font-weight: bold;
 }
 
-.hidden {
-    display: none;
+.hidden { display: none !important; }
+
+.transaction,
+.installment {
+    border-bottom: 1px solid #eee;
+    padding: 13px 0;
 }
 
-.transactions {
-    background: white;
-    padding: 20px;
-    border-radius: 15px;
+.transaction:last-child,
+.installment:last-child {
+    border-bottom: 0;
 }
 
 .transaction {
     display: flex;
     justify-content: space-between;
-    padding: 15px 0;
-    border-bottom: 1px solid #eee;
+    align-items: center;
+    gap: 10px;
 }
 
-.transaction-income {
-    color: #16833b;
+.transaction-info strong,
+.installment strong {
+    display: block;
+    margin-bottom: 4px;
 }
 
-.transaction-expense {
-    color: #c62828;
+.muted {
+    color: #888;
+    font-size: 12px;
+}
+
+.transaction-actions {
+    display: flex;
+    gap: 6px;
+    margin-top: 7px;
+}
+
+.transaction-actions button {
+    padding: 5px 8px;
+    border-radius: 8px;
+    background: #eee;
+    font-size: 11px;
+}
+
+.transaction-actions .delete {
+    color: #c00;
+}
+
+.installment-top {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.installment-meta {
+    color: #777;
+    font-size: 12px;
+    line-height: 1.7;
+    margin-top: 5px;
+}
+
+.pay-btn {
+    margin-top: 8px;
+    padding: 8px 10px;
+    border-radius: 9px;
+    background: #111;
+    color: #fff;
+    font-size: 12px;
+}
+
+.hint {
+    color: #777;
+    font-size: 12px;
+    line-height: 1.7;
 }
 
 .empty {
-    color: #999;
     text-align: center;
+    color: #999;
+    padding: 20px 0;
+}
+
+.toast {
+    position: fixed;
+    bottom: 22px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: #111;
+    color: #fff;
+    padding: 11px 16px;
+    border-radius: 10px;
+    opacity: 0;
+    pointer-events: none;
+    transition: .25s;
+    font-size: 13px;
+    z-index: 20;
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+@media (max-width: 430px) {
+    .container { width: min(100% - 18px, 560px); }
+    .balance-card strong { font-size: 27px; }
 }
