@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    >
+
+    <meta
+        name="theme-color"
+        content="#111111"
+    >
+
+    <meta
+        name="apple-mobile-web-app-capable"
+        content="yes"
+    >
+
+    <meta
+        name="apple-mobile-web-app-status-bar-style"
+        content="black-translucent"
+    >
+
+    <meta
+        name="apple-mobile-web-app-title"
+        content="حساباتي"
+    >
+
+    <title>حساباتي</title>
+
+    <!-- ملف التطبيق -->
+    <link
+        rel="manifest"
+        href="manifest.json"
+    >
+
+    <!-- التصميم -->
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+</head>
+
+
+<body>
+
+    <div class="app">
+
+        <header>
+
+            <h1>حساباتي</h1>
+
+            <p>
+                إدارة دخلك ومصروفاتك بسهولة
+            </p>
+
+        </header>
+
+
+        <!-- الرصيد -->
+
+        <section class="balance-card">
+
+            <p>
+                الرصيد الحالي
+            </p>
+
+            <h2 id="balance">
+                0 ج.م
+            </h2>
+
+        </section>
+
+
+        <!-- ملخص -->
+
+        <div class="summary">
+
+            <div class="summary-card income">
+
+                <span>
+                    إجمالي الدخل
+                </span>
+
+                <strong id="totalIncome">
+                    0 ج.م
+                </strong>
+
+            </div>
+
+
+            <div class="summary-card expense">
+
+                <span>
+                    إجمالي المصروفات
+                </span>
+
+                <strong id="totalExpense">
+                    0 ج.م
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <!-- الأزرار -->
+
+        <div class="actions">
+
+            <button
+                class="income-button"
+                onclick="showForm('income')"
+            >
+                + إضافة دخل
+            </button>
+
+
+            <button
+                class="expense-button"
+                onclick="showForm('expense')"
+            >
+                − إضافة مصروف
+            </button>
+
+        </div>
+
+
+        <!-- نموذج الإضافة -->
+
+        <section
+            id="formSection"
+            class="form-section hidden"
+        >
+
+            <h3 id="formTitle">
+                إضافة عملية
+            </h3>
+
+
+            <input
+                type="number"
+                id="amount"
+                placeholder="المبلغ بالجنيه"
+            >
+
+
+            <select id="category">
+
+                <option value="مرتب">
+                    مرتب
+                </option>
+
+                <option value="دروس">
+                    دروس
+                </option>
+
+                <option value="دخل آخر">
+                    دخل آخر
+                </option>
+
+            </select>
+
+
+            <input
+                type="text"
+                id="note"
+                placeholder="ملاحظة اختيارية"
+            >
+
+
+            <button onclick="saveTransaction()">
+                حفظ العملية
+            </button>
+
+        </section>
+
+
+        <!-- العمليات -->
+
+        <section class="transactions">
+
+            <h3>
+                آخر العمليات
+            </h3>
+
+
+            <div id="transactionsList">
+
+                <p class="empty">
+                    لا توجد عمليات حتى الآن
+                </p>
+
+            </div>
+
+        </section>
+
+    </div>
+
+
+    <!-- JavaScript -->
+
+    <script src="app.js"></script>
+
+
+    <!-- تشغيل التطبيق كـ PWA -->
+
+    <script>
+
+        if ("serviceWorker" in navigator) {
+
+            window.addEventListener("load", function () {
+
+                navigator.serviceWorker.register("./sw.js")
+
+                    .then(function () {
+
+                        console.log("التطبيق جاهز للعمل بدون إنترنت");
+
+                    })
+
+                    .catch(function (error) {
+
+                        console.log(
+                            "حدث خطأ في Service Worker:",
+                            error
+                        );
+
+                    });
+
+            });
+
+        }
+
+    </script>
+
+</body>
+
+</html>

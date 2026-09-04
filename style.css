@@ -1,0 +1,157 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f5f6f8;
+    color: #222;
+}
+
+.app {
+    max-width: 500px;
+    margin: auto;
+    padding: 20px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+header h1 {
+    margin-bottom: 5px;
+}
+
+header p {
+    color: #777;
+}
+
+.balance-card {
+    background: #111;
+    color: white;
+    border-radius: 20px;
+    padding: 25px;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.balance-card p {
+    margin: 0 0 10px;
+}
+
+.balance-card h2 {
+    margin: 0;
+    font-size: 32px;
+}
+
+.summary {
+    display: flex;
+    gap: 12px;
+}
+
+.summary-card {
+    background: white;
+    border-radius: 15px;
+    padding: 18px;
+    flex: 1;
+    text-align: center;
+}
+
+.summary-card span {
+    display: block;
+    color: #777;
+    margin-bottom: 8px;
+}
+
+.summary-card strong {
+    font-size: 20px;
+}
+
+.income strong {
+    color: #16833b;
+}
+
+.expense strong {
+    color: #c62828;
+}
+
+.actions {
+    display: flex;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+button {
+    border: none;
+    border-radius: 12px;
+    padding: 15px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.income-button {
+    background: #16833b;
+    color: white;
+    flex: 1;
+}
+
+.expense-button {
+    background: #c62828;
+    color: white;
+    flex: 1;
+}
+
+.form-section {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+}
+
+.form-section input,
+.form-section select {
+    width: 100%;
+    padding: 14px;
+    margin-bottom: 12px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-size: 16px;
+}
+
+.form-section button {
+    width: 100%;
+    background: #111;
+    color: white;
+}
+
+.hidden {
+    display: none;
+}
+
+.transactions {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+}
+
+.transaction {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.transaction-income {
+    color: #16833b;
+}
+
+.transaction-expense {
+    color: #c62828;
+}
+
+.empty {
+    color: #999;
+    text-align: center;
+}
