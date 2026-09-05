@@ -1,180 +1,33 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <meta name="theme-color" content="#111111">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="حساباتي">
-    <title>حساباتي</title>
-    <link rel="manifest" href="manifest.json">
-    <link rel="stylesheet" href="style.css?v=4">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#111"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="حساباتي">
+<title>حساباتي</title><link rel="manifest" href="manifest.json"><link rel="stylesheet" href="style.css?v=5">
 </head>
-<body>
-    <main class="container">
-        <header class="app-header">
-            <h1>حساباتي</h1>
-            <p>إدارة دخلك ومصروفاتك بسهولة</p>
-        </header>
-
-        <section class="cycle-card">
-            <div>
-                <span class="label">الدورة المالية الحالية</span>
-                <strong id="cycleTitle">—</strong>
-            </div>
-            <button class="small-btn" onclick="openSettings()">⚙️ الإعدادات</button>
-        </section>
-
-        <section class="balance-card">
-            <span>الرصيد الحالي</span>
-            <strong id="balance">٠ ج.م</strong>
-        </section>
-
-        <section class="summary-grid">
-            <div class="summary-card">
-                <span>دخل الدورة</span>
-                <strong id="cycleIncome">٠ ج.م</strong>
-            </div>
-            <div class="summary-card">
-                <span>مصروفات الدورة</span>
-                <strong id="cycleExpense">٠ ج.م</strong>
-            </div>
-            <div class="summary-card">
-                <span>دخل كل الوقت</span>
-                <strong id="totalIncome">٠ ج.م</strong>
-            </div>
-            <div class="summary-card">
-                <span>مصروفات كل الوقت</span>
-                <strong id="totalExpense">٠ ج.م</strong>
-            </div>
-        </section>
-
-        <section class="dashboard-extra">
-            <div class="insight-card">
-                <span>المتاح في الدورة</span>
-                <strong id="cycleRemaining">٠ ج.م</strong>
-                <small id="cycleRemainingHint">دخل الدورة − مصروفاتها</small>
-            </div>
-            <div class="insight-card">
-                <span>إجمالي المتبقي من الأقساط</span>
-                <strong id="installmentsRemaining">٠ ج.م</strong>
-                <small id="installmentsHint">لا توجد أقساط</small>
-            </div>
-        </section>
-
-        <section class="panel analytics-panel">
-            <div class="panel-header">
-                <h2>📊 تحليل الدورة الحالية</h2>
-            </div>
-            <div class="analytics-grid">
-                <div>
-                    <h3>أين ذهب مصروفي؟</h3>
-                    <div id="expenseBreakdown"></div>
-                </div>
-                <div>
-                    <h3>مصادر دخلي</h3>
-                    <div id="incomeBreakdown"></div>
-                </div>
-            </div>
-        </section>
-
-        <section class="panel">
-            <div class="panel-header">
-                <h2>🏦 الأقساط القادمة</h2>
-            </div>
-            <div id="installmentOverview"></div>
-        </section>
-
-        <section class="actions">
-            <button class="income-btn" onclick="showForm('income')">＋ إضافة دخل</button>
-            <button class="expense-btn" onclick="showForm('expense')">− إضافة مصروف</button>
-        </section>
-
-        <section id="formSection" class="panel hidden">
-            <div class="panel-header">
-                <h2 id="formTitle">إضافة دخل</h2>
-                <button class="icon-btn" onclick="closeForm()">✕</button>
-            </div>
-
-            <label>المبلغ</label>
-            <input id="amount" type="number" inputmode="decimal" min="0" placeholder="مثال: 500">
-
-            <label>التصنيف</label>
-            <select id="category"></select>
-
-            <label>ملاحظة</label>
-            <input id="note" type="text" placeholder="اختياري">
-
-            <label>التاريخ</label>
-            <input id="transactionDate" type="date">
-
-            <button class="primary-btn" onclick="saveTransaction()">حفظ العملية</button>
-        </section>
-
-        <section class="panel">
-            <div class="panel-header">
-                <h2>الأقساط</h2>
-                <button class="small-btn" onclick="openInstallmentForm()">＋ إضافة قسط</button>
-            </div>
-            <div id="installmentsList"></div>
-        </section>
-
-        <section id="installmentForm" class="panel hidden">
-            <div class="panel-header">
-                <h2>إضافة قسط</h2>
-                <button class="icon-btn" onclick="closeInstallmentForm()">✕</button>
-            </div>
-
-            <label>اسم القسط</label>
-            <input id="installmentName" type="text" placeholder="مثال: قسط الشقة">
-
-            <label>قيمة القسط الشهري</label>
-            <input id="installmentAmount" type="number" inputmode="decimal" min="0" placeholder="مثال: 12700">
-
-            <label>يوم الاستحقاق</label>
-            <input id="installmentDay" type="number" min="1" max="31" value="5">
-
-            <label>إجمالي عدد الأقساط</label>
-            <input id="installmentTotal" type="number" min="1" placeholder="مثال: 96">
-
-            <label>الأقساط المدفوعة حاليًا</label>
-            <input id="installmentPaid" type="number" min="0" value="0">
-
-            <button class="primary-btn" onclick="saveInstallment()">حفظ القسط</button>
-        </section>
-
-        <section class="panel">
-            <div class="panel-header">
-                <h2>آخر العمليات</h2>
-                <button class="small-btn" onclick="showCurrentCycleOnly()">دورة اليوم</button>
-            </div>
-            <div id="transactionsList"></div>
-        </section>
-
-        <section id="settingsPanel" class="panel hidden">
-            <div class="panel-header">
-                <h2>الإعدادات</h2>
-                <button class="icon-btn" onclick="closeSettings()">✕</button>
-            </div>
-
-            <label>يوم بداية الدورة المالية</label>
-            <input id="cycleStartDay" type="number" min="1" max="31" value="30">
-            <p class="hint">بما أن مرتبك ينزل يوم 30، نستخدم 30 كبداية للدورة. مثال: 30 أغسطس → 29 سبتمبر.</p>
-
-            <button class="primary-btn" onclick="saveSettings()">حفظ الإعدادات</button>
-        </section>
-
-        <div id="toast" class="toast"></div>
-    </main>
-
-    <script src="app.js?v=4"></script>
-    <script>
-        if ("serviceWorker" in navigator) {
-            window.addEventListener("load", () => {
-                navigator.serviceWorker.register("./sw.js?v=4").catch(() => {});
-            });
-        }
-    </script>
-</body>
-</html>
+<body><main class="container">
+<header class="app-header"><h1>حساباتي</h1><p>فلوسك لها وظيفة قبل ما تصرفها</p></header>
+<section class="cycle-card"><div><span class="label">الدورة المالية الحالية</span><strong id="cycleTitle">—</strong></div><button class="small-btn" onclick="openSettings()">⚙️ الإعدادات</button></section>
+<section class="balance-card"><span>الرصيد النقدي المسجل</span><strong id="balance">٠ ج.م</strong><small>الدخل − المصروفات</small></section>
+<section class="summary-grid"><div class="summary-card"><span>دخل الدورة</span><strong id="cycleIncome">٠ ج.م</strong></div><div class="summary-card"><span>مصروفات الدورة</span><strong id="cycleExpense">٠ ج.م</strong></div><div class="summary-card"><span>دخل كل الوقت</span><strong id="totalIncome">٠ ج.م</strong></div><div class="summary-card"><span>مصروفات كل الوقت</span><strong id="totalExpense">٠ ج.م</strong></div></section>
+<section class="panel smart-panel"><div class="panel-header"><h2>🧠 خطة فلوسي</h2></div><p class="hint">التطبيق يفرّق بين المرتب الشهري ودخل الدروس اليومي، ويقترح لك ماذا تفعل بأي مبلغ يدخل.</p><div id="planSummary"></div></section>
+<section class="panel"><div class="panel-header"><h2>💰 أظرفي المالية</h2></div><div id="envelopes" class="envelopes"></div></section>
+<section class="panel"><div class="panel-header"><h2>🎯 أهدافي</h2><button class="small-btn" onclick="openGoalForm()">＋ هدف</button></div><div id="goalsList"></div></section>
+<section class="actions"><button class="income-btn" onclick="showForm('income')">＋ إضافة دخل</button><button class="expense-btn" onclick="showForm('expense')">− إضافة مصروف</button></section>
+<section id="formSection" class="panel hidden"><div class="panel-header"><h2 id="formTitle">إضافة دخل</h2><button class="icon-btn" onclick="closeForm()">✕</button></div>
+<label>المبلغ</label><input id="amount" type="number" inputmode="decimal" min="0" placeholder="مثال: 1000">
+<label>نوع الدخل</label><select id="category"></select>
+<div id="incomeAllocationBox" class="allocation-box hidden"><h3>💡 اقتراح توزيع المبلغ</h3><div id="allocationPreview"></div><p class="hint">يمكنك تعديل النسب من الإعدادات. عند حفظ دخل جديد تُضاف هذه المبالغ لأظرفك.</p></div>
+<label>ملاحظة</label><input id="note" type="text" placeholder="اختياري"><label>التاريخ</label><input id="transactionDate" type="date"><button class="primary-btn" onclick="saveTransaction()">حفظ العملية</button></section>
+<section id="goalForm" class="panel hidden"><div class="panel-header"><h2>إضافة هدف</h2><button class="icon-btn" onclick="closeGoalForm()">✕</button></div><label>اسم الهدف</label><input id="goalName" placeholder="مثال: سفريّة أو موبايل"><label>المبلغ المطلوب</label><input id="goalTarget" type="number" min="1" inputmode="decimal"><button class="primary-btn" onclick="saveGoal()">حفظ الهدف</button></section>
+<section class="panel"><div class="panel-header"><h2>📌 الالتزامات الثابتة</h2><button class="small-btn" onclick="openFixedForm()">＋ التزام</button></div><p class="hint">دي أول حاجة التطبيق يحجز لها من المرتب قبل أي توزيع آخر.</p><div id="fixedExpensesList"></div></section>
+<section id="fixedForm" class="panel hidden"><div class="panel-header"><h2>إضافة التزام ثابت</h2><button class="icon-btn" onclick="closeFixedForm()">✕</button></div><label>اسم الالتزام</label><input id="fixedName" placeholder="مثال: مصروف البيت"><label>المبلغ الشهري</label><input id="fixedAmount" type="number" min="1" inputmode="decimal"><label>الأولوية</label><select id="fixedPriority"><option value="essential">ضروري</option><option value="important">مهم</option></select><button class="primary-btn" onclick="saveFixedExpense()">حفظ الالتزام</button></section>
+<section class="panel"><div class="panel-header"><h2>🏦 الأقساط</h2><button class="small-btn" onclick="openInstallmentForm()">＋ إضافة قسط</button></div><div id="installmentsList"></div></section>
+<section id="installmentForm" class="panel hidden"><div class="panel-header"><h2>إضافة قسط</h2><button class="icon-btn" onclick="closeInstallmentForm()">✕</button></div><label>اسم القسط</label><input id="installmentName" type="text" placeholder="مثال: قسط الشقة"><label>قيمة القسط الشهري</label><input id="installmentAmount" type="number" min="0"><label>يوم الاستحقاق</label><input id="installmentDay" type="number" min="1" max="31" value="5"><label>إجمالي عدد الأقساط</label><input id="installmentTotal" type="number" min="1"><label>الأقساط المدفوعة حاليًا</label><input id="installmentPaid" type="number" min="0" value="0"><button class="primary-btn" onclick="saveInstallment()">حفظ القسط</button></section>
+<section class="panel"><div class="panel-header"><h2>آخر العمليات</h2><button class="small-btn" onclick="showCurrentCycleOnly()">دورة اليوم</button></div><div id="transactionsList"></div></section>
+<section id="settingsPanel" class="panel hidden"><div class="panel-header"><h2>⚙️ إعدادات التوزيع</h2><button class="icon-btn" onclick="closeSettings()">✕</button></div>
+<label>يوم بداية الدورة المالية</label><input id="cycleStartDay" type="number" min="1" max="31" value="30"><h3 class="settings-title">توزيع دخل الدروس اليومي</h3><div class="settings-grid"><label>ذهب %<input id="lessonGold" type="number" min="0" max="100"></label><label>طوارئ %<input id="lessonEmergency" type="number" min="0" max="100"></label><label>استثمار %<input id="lessonInvestment" type="number" min="0" max="100"></label><label>أهداف %<input id="lessonGoals" type="number" min="0" max="100"></label><label>ترفيه %<input id="lessonFun" type="number" min="0" max="100"></label><label>احتياطي %<input id="lessonReserve" type="number" min="0" max="100"></label></div>
+<h3 class="settings-title">توزيع الدخل الآخر/المتبقي</h3><div class="settings-grid"><label>ذهب %<input id="otherGold" type="number" min="0" max="100"></label><label>طوارئ %<input id="otherEmergency" type="number" min="0" max="100"></label><label>استثمار %<input id="otherInvestment" type="number" min="0" max="100"></label><label>أهداف %<input id="otherGoals" type="number" min="0" max="100"></label><label>ترفيه %<input id="otherFun" type="number" min="0" max="100"></label><label>احتياطي %<input id="otherReserve" type="number" min="0" max="100"></label></div>
+<p class="hint">المرتب الشهري يذهب أولًا لحجز الالتزامات الثابتة. لو بقي منه مبلغ، يوزع وفق نسب الدخل الآخر.</p><button class="primary-btn" onclick="saveSettings()">حفظ الإعدادات</button></section>
+<div id="toast" class="toast"></div></main>
+<script src="app.js?v=5"></script><script>if('serviceWorker'in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js?v=5').catch(()=>{}));}</script></body></html>
